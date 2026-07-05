@@ -22,17 +22,13 @@ struct HomeView: View {
           
         } label: {
           Text(Constants.Strings.play)
-            .frame(width: 100, height: 50)
-            .bold()
-            .background {
-              RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .stroke(lineWidth: 5)
-            }
+            .ghostButton()
         }
         Button {
           
         } label: {
           Text(Constants.Strings.download)
+            .ghostButton()
         }
       }
     }
