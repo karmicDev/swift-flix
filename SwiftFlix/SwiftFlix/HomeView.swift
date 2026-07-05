@@ -9,31 +9,34 @@ import SwiftUI
 
 struct HomeView: View {
   var body: some View {
-    ScrollView {
-      LazyVStack {
-        AsyncImage(url: URL(string: Constants.URLs.testTitle)) { image in
-          image
-            .resizable()
-            .scaledToFit()
-        } placeholder: {
-          ProgressView()
-        }
-        HStack {
-          Button {
-          } label: {
-            Text(Constants.Strings.play)
-              .ghostButton()
+    GeometryReader { geo in
+      ScrollView {
+        LazyVStack {
+          AsyncImage(url: URL(string: Constants.URLs.testTitle)) { image in
+            image
+              .resizable()
+              .scaledToFit()
+          } placeholder: {
+            ProgressView()
           }
-          Button {
-          } label: {
-            Text(Constants.Strings.download)
-              .ghostButton()
+          .frame(width: geo.size.width, height: geo.size.height * 0.85)
+          HStack {
+            Button {
+            } label: {
+              Text(Constants.Strings.play)
+                .ghostButton()
+            }
+            Button {
+            } label: {
+              Text(Constants.Strings.download)
+                .ghostButton()
+            }
           }
+          HorizontalListView(header: Constants.Strings.trendingMovies)
+          HorizontalListView(header: Constants.Strings.trendingTV)
+          HorizontalListView(header: Constants.Strings.topRatedMovies)
+          HorizontalListView(header: Constants.Strings.topRatedTV)
         }
-        HorizontalListView(header: Constants.Strings.trendingMovies)
-        HorizontalListView(header: Constants.Strings.trendingTV)
-        HorizontalListView(header: Constants.Strings.topRatedMovies)
-        HorizontalListView(header: Constants.Strings.topRatedTV)
       }
     }
   }
