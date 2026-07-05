@@ -13,6 +13,7 @@ struct Constants {
     static let upcoming = "Upcoming"
     static let search = "Search"
     static let download = "Download"
+    static let play = "Play"
   }
   
   struct Icons {
@@ -20,5 +21,11 @@ struct Constants {
     static let upcoming = "play.circle"
     static let search = "magnifyingglass"
     static let download = "arrow.down.to.line"
+  }
+  
+  struct URLs {
+    static let testTitle = "https://image.tmdb.org/t/p/w500/nnl6OWkyPpuMm595hmAxNW3rZFn.jpg"
+    static let testTitle2 = "https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg"
+    static let testTitle3 = "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg"
   }
 }
