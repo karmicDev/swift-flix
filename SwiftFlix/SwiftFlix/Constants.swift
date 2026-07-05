@@ -15,6 +15,7 @@ struct Constants {
     static let search = "Search"
     static let download = "Download"
     static let play = "Play"
+    static let trendingMovies = "Trending Movies"
   }
   
   struct Icons {
