@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HorizontalListView: View {
-  let header = Constants.Strings.trendingMovies
+  let header: String
   var titles = [Constants.URLs.testTitle,
                 Constants.URLs.testTitle2,
                 Constants.URLs.testTitle3]
@@ -24,6 +24,7 @@ struct HorizontalListView: View {
                 image
                   .resizable()
                   .scaledToFit()
+                  .clipShape(RoundedRectangle(cornerRadius: 10))
               } placeholder: {
                 ProgressView()
               }
@@ -38,5 +39,5 @@ struct HorizontalListView: View {
 }
 
 #Preview {
-    HorizontalListView()
+  HorizontalListView(header: Constants.Strings.trendingMovies)
 }
