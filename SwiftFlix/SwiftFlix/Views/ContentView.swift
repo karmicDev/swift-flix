@@ -23,6 +23,12 @@ struct ContentView: View {
           Text(Constants.Strings.download)
         }
       }
+      .onAppear {
+        if let config = APIConfig.shared {
+          print("tmdbBaseURL: " + config.tmdbBaseURL)
+          print("tmdbAPIKey: " + config.tmdbAPIKey)
+        }
+      }
     }
 }
 
