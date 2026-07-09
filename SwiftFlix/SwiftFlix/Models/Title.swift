@@ -8,10 +8,10 @@
 import Foundation
 
 struct APIObject: Decodable {
-  var results: [Movie] = []
+  var results: [Title] = []
 }
 
-struct Movie: Decodable, Identifiable {
+struct Title: Decodable, Identifiable {
   var adult: Bool?
   var backdropPath: String?
   var id: Int?
@@ -29,3 +29,5 @@ struct Movie: Decodable, Identifiable {
   var voteAverage: Float?
   var vote_count: Float?
 }
+
+enum MediaTypes
