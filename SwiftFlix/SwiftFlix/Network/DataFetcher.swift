@@ -19,12 +19,14 @@ func fetchTitle(for mediaType: MediaType) async throws -> [Title] {
     throw NetworkError.missingConfig
   }
 
-  let fetchTitlesURL = URL(string: baseURL)?
+  guard let fetchTitlesURL = URL(string: baseURL)?
     .appending(path: "trending/\(mediaType.rawValue)/day")
     .appending(queryItems: [
       URLQueryItem(name: "api_key", value: apiKey)
-    ])
-  
-  print("fetchTitlesURL: " + (fetchTitlesURL?.absoluteString ?? "nil"))
+    ]) else {
+    throw NetworkError.urlBuildFailed
+  }
+
+  print("fetchTitlesURL: " + (fetchTitlesURL.absoluteString))
   return []
 }

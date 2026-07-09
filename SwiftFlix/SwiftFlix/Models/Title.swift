@@ -29,5 +29,3 @@ struct Title: Decodable, Identifiable {
   var voteAverage: Float?
   var vote_count: Float?
 }
-
-enum MediaTypes
