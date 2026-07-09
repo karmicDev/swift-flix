@@ -25,5 +25,6 @@ func fetchTitle(for mediaType: MediaType) async throws -> [Title] {
       URLQueryItem(name: "api_key", value: apiKey)
     ])
   
+  print("fetchTitlesURL: " + (fetchTitlesURL?.absoluteString ?? "nil"))
   return []
 }
