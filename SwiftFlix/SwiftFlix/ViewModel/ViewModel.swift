@@ -30,8 +30,8 @@ class ViewModel {
     do {
       trendingMovies = try await dataFetcher.fetchTitle(for: .trendingMovie)
       trendingTV = try await dataFetcher.fetchTitle(for: .trendingTV)
-      topRatedTV = try await dataFetcher.fetchTitle(for: .topRatedTV)
       topRatedMovies = try await dataFetcher.fetchTitle(for: .topRatedMovie)
+      topRatedTV = try await dataFetcher.fetchTitle(for: .topRatedTV)
       homeStatus = .success
     } catch {
       print(error)

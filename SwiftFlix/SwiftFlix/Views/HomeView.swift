@@ -47,10 +47,22 @@ struct HomeView: View {
                   .ghostButton()
               }
             }
-            HorizontalListView(header: Constants.Strings.trendingMovies, titles: viewModel.trendingMovies)
-            //HorizontalListView(header: Constants.Strings.trendingTV)
-            //HorizontalListView(header: Constants.Strings.topRatedMovies)
-            //HorizontalListView(header: Constants.Strings.topRatedTV)
+            HorizontalListView(
+              header: Constants.Strings.trendingMovies,
+              titles: viewModel.trendingMovies
+            )
+            HorizontalListView(
+              header: Constants.Strings.trendingTV,
+              titles: viewModel.trendingTV
+            )
+            HorizontalListView(
+              header: Constants.Strings.topRatedMovies,
+              titles: viewModel.topRatedMovies
+            )
+            HorizontalListView(
+              header: Constants.Strings.topRatedTV,
+              titles: viewModel.topRatedTV
+            )
           }
         case .failed(let error):
           Text("Error: \(error.localizedDescription)")
