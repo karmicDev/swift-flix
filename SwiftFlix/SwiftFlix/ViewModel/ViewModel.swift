@@ -28,10 +28,16 @@ class ViewModel {
     homeStatus = .fetching
 
     do {
-      trendingMovies = try await dataFetcher.fetchTitle(for: .trendingMovie)
-      trendingTV = try await dataFetcher.fetchTitle(for: .trendingTV)
-      topRatedMovies = try await dataFetcher.fetchTitle(for: .topRatedMovie)
-      topRatedTV = try await dataFetcher.fetchTitle(for: .topRatedTV)
+      async let tMovies = dataFetcher.fetchTitle(for: .trendingMovie)
+      async let tTV = dataFetcher.fetchTitle(for: .trendingTV)
+      async let tRMovies = dataFetcher.fetchTitle(for: .topRatedMovie)
+      async let tRTV = dataFetcher.fetchTitle(for: .topRatedTV)
+
+      trendingMovies = try await tMovies
+      trendingTV = try await tTV
+      topRatedMovies = try await tRMovies
+      topRatedTV = try await tRTV
+
       homeStatus = .success
     } catch {
       print(error)
