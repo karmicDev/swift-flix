@@ -21,7 +21,7 @@ enum Endpoint {
       return "movie/top_rated"
     case .topRatedTv:
       return "tv/top_rated"
-    case .search(let query)
+    case .search(let query):
       return "search/\(query)"
     }
   }
