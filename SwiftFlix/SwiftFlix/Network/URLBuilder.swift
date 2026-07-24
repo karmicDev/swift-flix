@@ -19,25 +19,25 @@ struct URLBuilder {
     switch endpoint {
     case .trending(let mediaType):
       guard let titlesURL = URL(string: baseURL)?
-        .appending(path: "trending/\(mediaType.rawValue)/day")
+        .appending(path: endpoint.urlPath)
         .appending(queryItems: [
           URLQueryItem(name: "api_key", value: apiKey)
         ]) else {
         throw NetworkError.urlBuildFailed
       }
       return titlesURL
-    case .movie(let id):
+    case .topRatedMovie:
       guard let movieURL = URL(string: baseURL)?
-        .appending(path: "movie/\(id)")
+        .appending(path: endpoint.urlPath)
         .appending(queryItems: [
           URLQueryItem(name: "api_key", value: apiKey)
         ]) else {
         throw NetworkError.urlBuildFailed
       }
       return movieURL
-    case .tv(let id):
+    case .topRatedTv:
       guard let movieURL = URL(string: baseURL)?
-        .appending(path: "tv/\(id)")
+        .appending(path: endpoint.urlPath)
         .appending(queryItems: [
           URLQueryItem(name: "api_key", value: apiKey)
         ]) else {
@@ -46,7 +46,7 @@ struct URLBuilder {
       return movieURL
     case .search(let query):
       guard let searchURL = URL(string: baseURL)?
-        .appending(path: "search/\(query)")
+        .appending(path: endpoint.urlPath)
         .appending(queryItems: [
           URLQueryItem(name: "api_key", value: apiKey)
         ]) else {
