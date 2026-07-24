@@ -8,7 +8,7 @@
 import Foundation
 
 struct URLBuilder {
-  func url(for endpoint: Endpoint, and apiKey: String?) throws -> URL {
+  static func url(for endpoint: Endpoint, and apiKey: String?) throws -> URL {
     guard let baseURL = tmdbBaseURL else {
       throw NetworkError.missingConfig
     }

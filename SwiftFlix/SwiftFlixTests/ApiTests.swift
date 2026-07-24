@@ -12,7 +12,7 @@ internal import Foundation
 struct ApiTests {
   @Test
   func trendingURL() throws {
-    let url = try URLBuilder().url(for: .trending(mediaType: .movie), and: tmdbApiKey)
+    let url = try URLBuilder.url(for: .trending(mediaType: .movie), and: tmdbApiKey)
     #expect(url.scheme == "https")
     #expect(url.host == "api.themoviedb.org")
     #expect(url.path == "/3/trending/movie/day")
