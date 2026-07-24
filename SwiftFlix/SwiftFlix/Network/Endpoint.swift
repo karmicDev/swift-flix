@@ -8,18 +8,21 @@
 import Foundation
 
 enum Endpoint {
-  case trending(mediaType: MediaType)
+  case trendingMovie
+  case trendingTV
   case topRatedMovie
-  case topRatedTv
+  case topRatedTV
   case search(query: String)
 
   var urlPath: String {
     switch self {
-    case .trending(let mediaType):
-      return "trending/\(mediaType.rawValue)/day"
+    case .trendingMovie:
+      return "trending/movie/day"
+    case .trendingTV:
+      return "trending/tv/day"
     case .topRatedMovie:
       return "movie/top_rated"
-    case .topRatedTv:
+    case .topRatedTV:
       return "tv/top_rated"
     case .search(let query):
       return "search/\(query)"

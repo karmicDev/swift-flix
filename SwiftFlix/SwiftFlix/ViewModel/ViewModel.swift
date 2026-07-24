@@ -20,12 +20,18 @@ class ViewModel {
   private(set) var homeStatus: FetchStatus = .notStarted
   private let dataFetcher = DataFetcher()
   var trendingMovies: [Title] = []
+  var trendingTV: [Title] = []
+  var topRatedMovies: [Title] = []
+  var topRatedTV: [Title] = []
   
   func getTitles() async {
     homeStatus = .fetching
 
     do {
-      trendingMovies = try await dataFetcher.fetchTitle(for: .movie)
+      trendingMovies = try await dataFetcher.fetchTitle(for: .trendingMovie)
+      trendingTV = try await dataFetcher.fetchTitle(for: .trendingTV)
+      topRatedTV = try await dataFetcher.fetchTitle(for: .topRatedTV)
+      topRatedMovies = try await dataFetcher.fetchTitle(for: .topRatedMovie)
       homeStatus = .success
     } catch {
       print(error)

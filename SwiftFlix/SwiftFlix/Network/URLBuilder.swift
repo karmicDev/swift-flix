@@ -16,43 +16,14 @@ struct URLBuilder {
       throw NetworkError.missingConfig
     }
 
-    switch endpoint {
-    case .trending(let mediaType):
-      guard let titlesURL = URL(string: baseURL)?
-        .appending(path: endpoint.urlPath)
-        .appending(queryItems: [
-          URLQueryItem(name: "api_key", value: apiKey)
-        ]) else {
-        throw NetworkError.urlBuildFailed
-      }
-      return titlesURL
-    case .topRatedMovie:
-      guard let movieURL = URL(string: baseURL)?
-        .appending(path: endpoint.urlPath)
-        .appending(queryItems: [
-          URLQueryItem(name: "api_key", value: apiKey)
-        ]) else {
-        throw NetworkError.urlBuildFailed
-      }
-      return movieURL
-    case .topRatedTv:
-      guard let movieURL = URL(string: baseURL)?
-        .appending(path: endpoint.urlPath)
-        .appending(queryItems: [
-          URLQueryItem(name: "api_key", value: apiKey)
-        ]) else {
-        throw NetworkError.urlBuildFailed
-      }
-      return movieURL
-    case .search(let query):
-      guard let searchURL = URL(string: baseURL)?
-        .appending(path: endpoint.urlPath)
-        .appending(queryItems: [
-          URLQueryItem(name: "api_key", value: apiKey)
-        ]) else {
-        throw NetworkError.urlBuildFailed
-      }
-      return searchURL
+    guard let url = URL(string: baseURL)?
+      .appending(path: endpoint.urlPath)
+      .appending(queryItems: [
+        URLQueryItem(name: "api_key", value: apiKey)
+      ]) else {
+      throw NetworkError.urlBuildFailed
     }
+
+    return url
   }
 }

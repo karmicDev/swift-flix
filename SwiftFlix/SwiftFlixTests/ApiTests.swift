@@ -11,12 +11,11 @@ internal import Foundation
 
 struct ApiTests {
   @Test
-  func trendingURL() throws {
-    let url = try URLBuilder.url(for: .trending(mediaType: .movie), and: APIConfig.shared?.tmdbAPIKey)
+  func trendingMovieURL() throws {
+    let url = try URLBuilder.url(for: .trendingMovie, and: APIConfig.shared?.tmdbAPIKey)
     #expect(url.scheme == "https")
     #expect(url.host == "api.themoviedb.org")
     #expect(url.path == "/3/trending/movie/day")
-  
 
     let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
     guard let apiKey = APIConfig.shared?.tmdbAPIKey else {
@@ -25,7 +24,57 @@ struct ApiTests {
     print("url: " + url.absoluteString)
     #expect(components?.queryItems?.contains(
       URLQueryItem(name: "api_key", value: apiKey)
-    ) == true
-    )
+    ) == true)
+  }
+
+  @Test
+  func trendingTVURL() throws {
+    let url = try URLBuilder.url(for: .trendingTV, and: APIConfig.shared?.tmdbAPIKey)
+    #expect(url.scheme == "https")
+    #expect(url.host == "api.themoviedb.org")
+    #expect(url.path == "/3/trending/tv/day")
+
+    let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+    guard let apiKey = APIConfig.shared?.tmdbAPIKey else {
+      throw APIConfigError.fileNotFound
+    }
+    print("url: " + url.absoluteString)
+    #expect(components?.queryItems?.contains(
+      URLQueryItem(name: "api_key", value: apiKey)
+    ) == true)
+  }
+
+  @Test
+  func topRatedTVURL() throws {
+    let url = try URLBuilder.url(for: .topRatedTV, and: APIConfig.shared?.tmdbAPIKey)
+    #expect(url.scheme == "https")
+    #expect(url.host == "api.themoviedb.org")
+    #expect(url.path == "/3/tv/top_rated")
+
+    let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+    guard let apiKey = APIConfig.shared?.tmdbAPIKey else {
+      throw APIConfigError.fileNotFound
+    }
+    print("url: " + url.absoluteString)
+    #expect(components?.queryItems?.contains(
+      URLQueryItem(name: "api_key", value: apiKey)
+    ) == true)
+  }
+
+  @Test
+  func topRatedMovieURL() throws {
+    let url = try URLBuilder.url(for: .topRatedMovie, and: APIConfig.shared?.tmdbAPIKey)
+    #expect(url.scheme == "https")
+    #expect(url.host == "api.themoviedb.org")
+    #expect(url.path == "/3/movie/top_rated")
+
+    let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+    guard let apiKey = APIConfig.shared?.tmdbAPIKey else {
+      throw APIConfigError.fileNotFound
+    }
+    print("url: " + url.absoluteString)
+    #expect(components?.queryItems?.contains(
+      URLQueryItem(name: "api_key", value: apiKey)
+    ) == true)
   }
 }
