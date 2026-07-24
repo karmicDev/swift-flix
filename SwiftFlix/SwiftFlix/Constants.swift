@@ -20,18 +20,27 @@ struct Constants {
     static let topRatedMovies = "Top Rated Movies"
     static let topRatedTV = "Top Rated TV"
   }
-  
+
   struct Icons {
     static let home = "house"
     static let upcoming = "play.circle"
     static let search = "magnifyingglass"
     static let download = "arrow.down.to.line"
   }
-  
+
   struct URLs {
     static let testTitle = "https://image.tmdb.org/t/p/w500/nnl6OWkyPpuMm595hmAxNW3rZFn.jpg"
     static let testTitle2 = "https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg"
     static let testTitle3 = "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg"
+    static let posterURLStart = "https://image.tmdb.org/t/p/w500"
+  
+    static func addPosterPath(to titles: inout[Title]) {
+      for index in titles.indices {
+        if let path = titles[index].posterPath {
+          titles[index].posterPath = Constants.URLs.posterURLStart + path
+        }
+      }
+    }
   }
 }
 

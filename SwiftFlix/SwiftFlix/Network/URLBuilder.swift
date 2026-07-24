@@ -9,7 +9,7 @@ import Foundation
 
 struct URLBuilder {
   static func url(for endpoint: Endpoint, and apiKey: String?) throws -> URL {
-    guard let baseURL = tmdbBaseURL else {
+    guard let baseURL = APIConfig.shared?.tmdbBaseURL else {
       throw NetworkError.missingConfig
     }
     guard let apiKey = apiKey else {

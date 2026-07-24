@@ -12,14 +12,14 @@ internal import Foundation
 struct ApiTests {
   @Test
   func trendingURL() throws {
-    let url = try URLBuilder.url(for: .trending(mediaType: .movie), and: tmdbApiKey)
+    let url = try URLBuilder.url(for: .trending(mediaType: .movie), and: APIConfig.shared?.tmdbAPIKey)
     #expect(url.scheme == "https")
     #expect(url.host == "api.themoviedb.org")
     #expect(url.path == "/3/trending/movie/day")
   
 
     let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
-    guard let apiKey = tmdbApiKey else {
+    guard let apiKey = APIConfig.shared?.tmdbAPIKey else {
       throw APIConfigError.fileNotFound
     }
     print("url: " + url.absoluteString)

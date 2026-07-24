@@ -8,17 +8,17 @@
 import Foundation
 
 enum URLPath {
-  case movie(id: Int)
-  case tv(id: Int)
+  case topRatedMovie(id: Int)
+  case topRatedTv(id: Int)
   case search(query: String)
   case trending(mediaType: MediaType)
 
   var absolute: String {
     switch self {
-    case .movie(let id):
-      return "movie/\(id)"
-    case .tv(let id):
-      return "tv/\(id)"
+    case .topRatedMovie(let id):
+      return "movie/top_rated\(id)"
+    case .topRatedTv(let id):
+      return "tv/top_rated\(id)"
     case .trending(let mediaType):
       return "trending/\(mediaType.rawValue)/day"
     case .search(let query):
