@@ -26,10 +26,10 @@ struct TitleDetailView: View {
           Text(title.title ?? "")
             .bold()
             .font(.title2)
-            .padding(4)
-            .padding(.top, -20)
+            .padding(8)
+            .padding(.top, 12)
           Text(title.overview ?? "")
-            .padding(4)
+            .padding(8)
         }
       }
     }

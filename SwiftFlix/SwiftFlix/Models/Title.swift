@@ -11,7 +11,7 @@ struct APIObject: Decodable {
   var results: [Title] = []
 }
 
-struct Title: Decodable, Identifiable {
+struct Title: Decodable, Identifiable, Hashable {
   var adult: Bool?
   var backdropPath: String?
   var id: Int?
