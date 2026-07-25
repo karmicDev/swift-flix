@@ -25,7 +25,7 @@ struct HomeView: View {
             )
         case .success:
           LazyVStack {
-            AsyncImage(url: URL(string: Constants.URLs.testTitle)) { image in
+            AsyncImage(url: URL(string: viewModel.heroTitle.posterPath ?? "")) { image in
               image
                 .resizable()
                 .scaledToFit()
