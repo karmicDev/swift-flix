@@ -57,23 +57,24 @@ struct HomeView: View {
               }
               HorizontalListView(
                 header: Constants.Strings.trendingMovies,
-                titles: viewModel.trendingMovies
-              )
+                titles: viewModel.trendingMovies) { title in
+                  titleDetailPath.append(title)
+                }
               HorizontalListView(
                 header: Constants.Strings.trendingTV,
-                titles: viewModel.trendingTV
-              )
+                titles: viewModel.trendingTV) { title in
+                  titleDetailPath.append(title)
+                }
               HorizontalListView(
                 header: Constants.Strings.topRatedMovies,
-                titles: viewModel.topRatedMovies
-              )
+                titles: viewModel.topRatedMovies) { title in
+                  titleDetailPath.append(title)
+                }
               HorizontalListView(
                 header: Constants.Strings.topRatedTV,
-                titles: viewModel.topRatedTV
-              )
-            }
-            .navigationDestination(for: Title.self) { title in
-              TitleDetailView(title: title)
+                titles: viewModel.topRatedTV) { title in
+                  titleDetailPath.append(title)
+                }
             }
           case .failed(let error):
             Text("Error: \(error.localizedDescription)")
@@ -81,6 +82,9 @@ struct HomeView: View {
         }
         .task {
           await viewModel.getTitles()
+        }
+        .navigationDestination(for: Title.self) { title in
+          TitleDetailView(title: title)
         }
       }
     }
