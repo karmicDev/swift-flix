@@ -10,6 +10,8 @@ import Foundation
 struct DataFetcher {
   let tmdbBaseURL = APIConfig.shared?.tmdbBaseURL
   let tmdbApiKey = APIConfig.shared?.tmdbAPIKey
+  let youtubeSearchURL = APIConfig.shared?.youtubeSearchURL
+  let youtubeAPIKey = APIConfig.shared?.youtubeAPIKey
 
   // https://api.themoviedb.org/3/trending/tv/day?api_key=your-api-key
   func fetchTitle(for endPoint: Endpoint) async throws -> [Title] {
@@ -17,8 +19,32 @@ struct DataFetcher {
       throw NetworkError.missingConfig
     }
     let titlesURL = try URLBuilder.url(for: endPoint, and: apiKey)
-    let (data, urlResponse) = try await URLSession.shared.data(from: titlesURL)
+    var titles = try await fetchAndDecode(url: titlesURL, type: TMDBAPIObject.self).results
+    Constants.URLs.addPosterPath(to: &titles)
+    return titles
+  }
 
+  func fetchVideoId(for title: String) async throws -> String {
+    guard let baseSearchURL = youtubeSearchURL else {
+      throw NetworkError.missingConfig
+    }
+    guard let apiKey = youtubeAPIKey else {
+      throw NetworkError.missingConfig
+    }
+
+    let trailerSearch = title + YoutubeURLString.space.rawValue + YoutubeURLString.trailer.rawValue
+    guard let fetchVideoURL = URL(string: baseSearchURL)?.appending(queryItems: [
+      URLQueryItem(name: YoutubeURLString.queryShorten.rawValue, value: trailerSearch),
+      URLQueryItem(name: YoutubeURLString.key.rawValue, value: apiKey)
+    ]) else {
+      throw NetworkError.urlBuildFailed
+    }
+    return try await fetchAndDecode(url: fetchVideoURL, type: YoutubeSearchResponse.self).items?.first?.id?.videoId ?? ""
+  }
+
+  func fetchAndDecode<T: Decodable>(url: URL, type: T.Type) async throws -> T {
+    let (data, urlResponse) = try await URLSession.shared.data(from: url)
+ 
     guard let response = urlResponse as? HTTPURLResponse, response.statusCode == 200 else {
       throw NetworkError.badURLResponse(underlyingError: NSError(
         domain: "DataFetcher",
@@ -29,9 +55,6 @@ struct DataFetcher {
 
     let decoder = JSONDecoder()
     decoder.keyDecodingStrategy = .convertFromSnakeCase
-    var titles = try decoder.decode(APIObject.self, from: data).results
-    Constants.URLs.addPosterPath(to: &titles)
-
-    return titles
+    return try decoder.decode(type, from: data)
   }
 }
