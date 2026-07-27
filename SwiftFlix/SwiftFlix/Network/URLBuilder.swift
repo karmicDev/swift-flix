@@ -15,15 +15,20 @@ struct URLBuilder {
     guard let apiKey = apiKey else {
       throw NetworkError.missingConfig
     }
-
+    
+    var queryItems = [URLQueryItem(name: "api_key", value: apiKey)]
+    
+    if case .search(let query) = endpoint {
+      queryItems.append(URLQueryItem(name: "query", value: query))
+    }
+    
     guard let url = URL(string: baseURL)?
       .appending(path: endpoint.urlPath)
-      .appending(queryItems: [
-        URLQueryItem(name: "api_key", value: apiKey)
-      ]) else {
+      .appending(queryItems: queryItems)
+    else {
       throw NetworkError.urlBuildFailed
     }
-
+    
     return url
   }
 }

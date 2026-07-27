@@ -14,6 +14,7 @@ struct DataFetcher {
   let youtubeAPIKey = APIConfig.shared?.youtubeAPIKey
 
   // https://api.themoviedb.org/3/trending/tv/day?api_key=your-api-key
+  // https://api.themoviedb.org/3/search/movie?api_key=your-api-key&query=PulpFiction
   func fetchTitle(for endPoint: Endpoint) async throws -> [Title] {
     guard let apiKey = tmdbApiKey else {
       throw NetworkError.missingConfig
