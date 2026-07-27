@@ -19,6 +19,8 @@ struct Constants {
     static let trendingTV = "Trending TV"
     static let topRatedMovies = "Top Rated Movies"
     static let topRatedTV = "Top Rated TV"
+    static let searchMovie = "Movie Search"
+    static let searchTV = "TV Search"
   }
 
   struct Icons {
@@ -26,6 +28,9 @@ struct Constants {
     static let upcoming = "play.circle"
     static let search = "magnifyingglass"
     static let download = "arrow.down.to.line"
+    static let tv = "tv"
+    static let movie = "movieclapper"
+    
   }
 
   struct URLs {
