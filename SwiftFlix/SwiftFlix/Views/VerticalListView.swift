@@ -13,11 +13,18 @@ struct VerticalListView: View {
   var body: some View {
     List(titles) { title in
       AsyncImage(url: URL(string: title.posterPath ?? "")) { image in
-        image
-          .resizable()
-          .scaledToFit()
-          .clipShape(.rect(cornerRadius: 10))
-          .padding(5)
+        HStack {
+          image
+            .resizable()
+            .scaledToFit()
+            .clipShape(.rect(cornerRadius: 10))
+            .padding(5)
+          
+          Text((title.title ?? title.name) ?? "")
+            .font(.system(size: 14))
+            .bold()
+        }
+        .frame(height: 150)
       } placeholder: {
         ProgressView()
       }
