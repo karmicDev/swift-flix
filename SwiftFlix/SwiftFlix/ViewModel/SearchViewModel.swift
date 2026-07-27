@@ -13,13 +13,13 @@ class SearchViewModel {
   private(set) var searchTitles: [Title] = []
   private let dataFetcher = DataFetcher()
 
-  func getSearchTitles(by media: String, for query: String) async {
+  func getSearchTitles(for query: String) async {
     do {
       errorMessage = nil
       if query.isEmpty {
         searchTitles = try await dataFetcher.fetchTitle(for: .trendingMovie)
       } else {
-        searchTitles = try await dataFetcher.fetchTitle(for: .search(query: query))
+        searchTitles = try await dataFetcher.fetchTitle(for: .searchMovie(query: query))
       }
     } catch {
       print(error)

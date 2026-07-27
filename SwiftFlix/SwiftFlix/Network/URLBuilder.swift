@@ -18,7 +18,10 @@ struct URLBuilder {
     
     var queryItems = [URLQueryItem(name: "api_key", value: apiKey)]
     
-    if case .search(let query) = endpoint {
+    if case .searchMovie(let query) = endpoint {
+      queryItems.append(URLQueryItem(name: "query", value: query))
+    }
+    if case .searchTV(let query) = endpoint {
       queryItems.append(URLQueryItem(name: "query", value: query))
     }
     

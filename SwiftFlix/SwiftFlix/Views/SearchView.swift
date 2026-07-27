@@ -8,15 +8,23 @@
 import SwiftUI
 
 struct SearchView: View {
-  var titles = Title.previewTitles
   @State private var searchByMovies = true
   @State private var searchText = ""
+  private let searchViewModel = SearchViewModel()
   
   var body: some View {
     NavigationStack {
       ScrollView {
+        if let error = searchViewModel.errorMessage {
+            Text(error)
+            .foregroundColor(.red)
+            .padding()
+            .background(.ultraThinMaterial)
+            .clipShape(.rect(cornerRadius: 10))
+        }
+        
         LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
-          ForEach(titles) { title in
+          ForEach(searchViewModel.searchTitles) { title in
             AsyncImage(url: URL(string: title.posterPath ?? "")) { image in
               image
                 .resizable()
@@ -36,6 +44,11 @@ struct SearchView: View {
         ToolbarItem(placement: .topBarTrailing) {
           Button {
             searchByMovies.toggle()
+            
+            Task {
+              await searchViewModel.getSearchTitles(for: searchText)
+            }
+            
           } label: {
             Image(systemName: searchByMovies ? Constants.Icons.movie : Constants.Icons.tv)
           }
@@ -43,6 +56,14 @@ struct SearchView: View {
       }
       .searchable(text: $searchText,
                   prompt: searchByMovies ? Constants.Strings.searchPlaceholderMovie : Constants.Strings.searchPlaceholderTV)
+      .task(id: searchText) {
+        try? await Task.sleep(for: .milliseconds(500))
+        
+        if Task.isCancelled {
+          return
+        }
+        await searchViewModel.getSearchTitles(for: searchText)
+      }
     }
   }
 }
