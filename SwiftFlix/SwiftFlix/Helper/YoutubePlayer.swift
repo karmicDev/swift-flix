@@ -20,7 +20,11 @@ struct YoutubePlayer: UIViewRepresentable {
   func updateUIView(_ uiView: UIViewType, context: Context) {
     guard let baseURLString = youtubeBaseURL,
           let baseURL = URL(string: baseURLString) else { return }
-    let fullURL = baseURL.appending(path: videoId)
+    let fullURL = baseURL.appending(path: videoId).appending(queryItems: [
+      //referrerpolicy='strict-origin-when-cross-origin'
+      URLQueryItem(name: "referrerpolicy", value: "strict-origin-when-cross-origin")
+      ])
+    print("fullURL: \(fullURL)")
     webView.load(URLRequest(url: fullURL))
   }
 }

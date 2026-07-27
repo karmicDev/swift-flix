@@ -16,7 +16,9 @@ struct Title: Decodable, Identifiable, Hashable {
   var backdropPath: String?
   var id: Int?
   var title: String?
+  var name: String?
   var originalTitle: String?
+  var originalName: String?
   var overview: String?
   var posterPath: String?
   var mediaType: String?
